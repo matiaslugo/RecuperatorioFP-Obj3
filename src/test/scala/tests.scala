@@ -33,8 +33,8 @@ class tests extends FlatSpec {
     var rectangulo = new Rectangulo(10, 6, 4, 6)
 
     val nuevaFigura = rectangulo.escalar(0.5)
-    assert(nuevaFigura.alto == 5)
-    assert(nuevaFigura.ancho == 3)
+    assert(nuevaFigura.alto == 3.0)
+    assert(nuevaFigura.ancho == 5.0)
 
   }
 
@@ -53,10 +53,10 @@ class tests extends FlatSpec {
   }
 
   "Test" should "TrasladarXeY" in {
-    var segmento = new Segmento(5, 4, 3, 4)
+    var segmento = new Rectangulo(5, 4, 3, 4)
     val moverFigura = segmento.trasladarXeY(2)(0) _
     val nuevaFigura = moverFigura(segmento)
-    assert(nuevaFigura.posicion.coordx == 7)
+    assert(nuevaFigura.posicion.coordx == 5)
     assert(nuevaFigura.posicion.coordy == 4)
 
   }
@@ -80,7 +80,6 @@ class tests extends FlatSpec {
     assert(nuevaFigura.ancho == 8)
     assert(nuevaFigura.alto == 20)
 
-
   }
 
   def moverAlOrigen (figura: Figura): Figura = {
@@ -88,7 +87,8 @@ class tests extends FlatSpec {
   }
 
   def trasladar(coord1:Int,coord2:Int,figura:Figura):Figura = {
-    var figuraRes = new Rectangulo(2,2,coord1,coord2)
+    var figuraRes = new Figura()
+    figuraRes.setPosicion(coord1,coord2)
     figuraRes.cambiarPosicion(figura.posicion)
     figuraRes
   }
@@ -125,17 +125,45 @@ class tests extends FlatSpec {
     var motor = new Motor
     motor.agregarFigura(unCirculo)
 
-    motor.transformar(trasladarXeY(2)(2)_)
-    motor.figuras.foreach{figura =>
-      assert(figura.posicion.coordx == 3)
-      assert(figura.posicion.coordy == 3)
-    }
+    motor.transformar(trasladarXeY(2)(2) _)
+    motor.getFiguras()
 
     motor.transformar(moverAlOrigen _)
-    motor.figuras.foreach{figura =>
-      assert(figura.posicion.coordx == 0)
-      assert(figura.posicion.coordy == 0)
-    }
+    motor.getFiguras()
+  }
+    "Test" should "Estados" in {
+    val unCirculo = new Circulo(4, 4, 5)
+    var motor = new Motor
+    motor.agregarFigura(unCirculo)
 
+    motor.transformar(moverAlOrigen _)
+
+    motor.getEstadoAnterior()
+
+    motor.getEstados()
+  }
+
+  "Test" should "Rollback" in {
+    val unCirculo = new Circulo(2, 2, 5)
+    var motor = new Motor
+    motor.agregarFigura(unCirculo)
+
+    motor.transformar(moverAlOrigen _)
+    motor.getFiguras()
+
+    motor.rollback(1)
+    motor.getFiguras()
+
+  }
+
+  "Test" should "Repetir" in {
+    val unCirculo = new Circulo(2, 2, 5)
+    var motor = new Motor
+    motor.agregarFigura(unCirculo)
+
+    motor.transformar(trasladarXeY(1)(1) _)
+    motor.getFiguras()
+    motor.repetir()
+    motor.getFiguras()
   }
 }

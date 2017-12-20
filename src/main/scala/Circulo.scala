@@ -19,7 +19,7 @@ class Circulo(coord1: Int,coord2: Int,nuevoRadio:Int) extends Figura{
   }
 
   override def escalar(proporcion:Double): Circulo ={
-    var figuraRes = new Circulo(0,0,50)
+    var figuraRes = new Circulo(0,0,this.radio)
     figuraRes.cambiarRadio(proporcion)
     figuraRes
   }

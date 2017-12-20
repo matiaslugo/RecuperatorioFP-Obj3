@@ -9,16 +9,14 @@ class Segmento(coord1:Int,coord2:Int,coord3:Int,coord4:Int) extends Figura {
   }
 
   def trasladar(coord1:Int,coord2:Int,figura:Segmento):Figura = {
-    var figuraRes = new Segmento(2,2,coord1,coord2)
+    var figuraRes = new Segmento(coord1,coord2,figura.puntoFinal.coordx,figura.puntoFinal.coordy)
     figuraRes.cambiarPosicion(figura.posicion)
-    figuraRes.cambiarPuntoFinal(figura.puntoFinal)
 
     figuraRes
   }
 
-  override def mover(coord1: Int, coord2: Int, figura: Figura): Figura = {
-    var figuraRes = new Segmento(2,2,coord1,coord2)
-    figuraRes.setPosicion(figura.posicion.coordx,figura.posicion.coordy)
+   override def mover(coord1: Int, coord2: Int, figura: Figura): Figura = {
+    var figuraRes = new Segmento(coord1,coord2,2,2)
     figuraRes
   }
 

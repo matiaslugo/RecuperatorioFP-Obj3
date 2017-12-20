@@ -1,6 +1,7 @@
 class Figura {
 
   var posicion: Punto = new Punto
+  var estadoAnterior = this
 
   def setPosicion(coord1: Int, coord2: Int) {
     this.posicion.setCoord(coord1, coord2)
@@ -44,4 +45,10 @@ class Figura {
   def doble(figura: Figura): Figura = {
     figura
   }
+
+  def guardarEstadoAnterior(figura: Figura){
+    this.estadoAnterior = figura
+  }
+
+
 }

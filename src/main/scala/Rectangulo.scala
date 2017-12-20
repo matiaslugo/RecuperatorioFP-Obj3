@@ -1,4 +1,4 @@
-class Rectangulo(nuevoAncho:Int,nuevoAlto:Int,coord1:Int,coord2:Int) extends Figura {
+class Rectangulo(nuevoAncho:Double,nuevoAlto:Double,coord1:Int,coord2:Int) extends Figura {
 
   super.setPosicion(coord1,coord2)
   var ancho:Double = nuevoAncho
@@ -20,7 +20,7 @@ class Rectangulo(nuevoAncho:Int,nuevoAlto:Int,coord1:Int,coord2:Int) extends Fig
   }
 
   override def escalar(proporcion:Double): Rectangulo ={
-    var figuraRes = new Rectangulo(2,2,this.posicion.coordx,this.posicion.coordy)
+    var figuraRes = new Rectangulo(this.ancho,this.alto,this.posicion.coordx,this.posicion.coordy)
     figuraRes.cambiarAltoYAncho(proporcion)
     figuraRes
   }
